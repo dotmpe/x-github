@@ -2,6 +2,12 @@ FROM phusion/baseimage:master
 
 MAINTAINER Docker Maintenance <docker-maint@dotmpe.com>
 
+LABEL \
+  org.label-schema.description="Upgraded phusion/baseimage with some usertools" \
+  org.label-schema.name="dotmpe/x-github" \
+  org.label-schema.vcs-url="https://github.com/dotmpe/x-github" \
+  org.label-schema.schema-version="1.0"
+
 # Upgrade with apt-get
 # Then install minimal user tools
 RUN \
@@ -32,4 +38,11 @@ RUN \
 
 RUN locale-gen en_US.UTF-8
 
-#
+# Fancy up (root) env
+ENV \
+  LANG=en_US.UTF-8 \
+  LANGUAGE=en_US:en \
+  LC_ALL=en_US.UTF-8 \
+  DEBIAN_FRONTEND=teletype
+
+# Id: x-github/x-docker-build Dockerfile
