@@ -6,20 +6,11 @@ on:
       - 'x-docker-build'
     tags:
       - 'x-docker-build-*'
+
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      #-
-      #  name: Relase Prepare for latest Tag
-      #  id: releasePreareLatestTag
-      #  shell: bash
-      #  run: |
-      #    if [[ "$GITHUB_REF" =~ ^refs/tags/x-docker-build-v.* ]]; then
-      #      echo -n "::set-output name=latest::true"
-      #    else
-      #      echo -n "::set-output name=latest::false"
-      #    fi
       -
         name: Docker meta
         id: meta
@@ -28,16 +19,11 @@ jobs:
           # list of Docker images to use as base name for tags
           images: |
             dotmpe/x-github
-          #flavor: |
-          #  latest=${{ steps.releasePreareLatestTag.outputs.latest}}
-          #  prefix=
-          #  suffix=
           # generate Docker tags based on the following events/attributes
           tags: |
             type=ref,event=branch
             type=edge,branch=x-docker-build
             type=match,pattern=x-docker-build-v(.*),group=1
-          #type=semver,pattern={{version}}
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
